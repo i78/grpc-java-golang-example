@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package gophersaah.ifaceconfig;
+option java_package = "ac.gophers.domain.measurifaceconfigements";
+option go_package = "gophers.ac/domain/ifaceconfig";
+
+message Empty {}
+
+enum InterfaceUpDown {
+    UP = 0;
+    DOWN = 1;
+}
+
+message InterfaceConfig {
+    string interface = 1;
+    bool beacon_enabled = 2;
+    string ssid = 3;
+    uint32 channel = 4;
+}
+
+message WpaPersonalConfig {
+    string psk = 1;
+}
+
+message InterfaceStatus {
+    InterfaceUpDown up_down = 1;
+}
+
+service ConfigService {                    
+    rpc SetInterfaceConfig (InterfaceConfig) returns (Empty) {}
+    rpc GetInterfaceConfig (Empty) returns (InterfaceConfig) {}
+    rpc SetInterfaceStatus (InterfaceStatus) returns (Empty) {}    
+}   
